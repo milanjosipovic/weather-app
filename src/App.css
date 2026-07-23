@@ -265,8 +265,14 @@
   border-radius: 22px;
   background: rgba(255, 255, 255, 0.64);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.75);
-  font-size: 44px;
-  line-height: 1;
+  color: #5c84ff;
+}
+
+.weather-svg-icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  color: inherit;
 }
 
 .weather-label {
@@ -352,7 +358,16 @@
 }
 
 .hour-card strong {
-  font-size: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+}
+
+.hour-card .weather-svg-icon {
+  width: 28px;
+  height: 28px;
+  color: #5c84ff;
 }
 
 .hour-card small,
@@ -384,10 +399,16 @@
   width: 34px;
   height: 34px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.78);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.82);
-  font-size: 20px;
-  line-height: 1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(232, 241, 255, 0.96));
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.92),
+    0 8px 18px rgba(91, 113, 163, 0.14);
+  color: #4f73d8;
+}
+
+.daily-icon-badge .weather-svg-icon {
+  width: 22px;
+  height: 22px;
 }
 
 .daily-row em {

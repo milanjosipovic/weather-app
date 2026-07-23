@@ -34,34 +34,34 @@ type ForecastResponse = {
 }
 
 const WEATHER_CODE_MAP: Record<number, { label: string; icon: string }> = {
-  0: { label: 'Clear sky', icon: '☀️' },
-  1: { label: 'Mostly clear', icon: '🌤️' },
-  2: { label: 'Partly cloudy', icon: '⛅️' },
-  3: { label: 'Overcast', icon: '☁️' },
-  45: { label: 'Foggy', icon: '🌫️' },
-  48: { label: 'Rime fog', icon: '🌫️' },
-  51: { label: 'Light drizzle', icon: '🌦️' },
-  53: { label: 'Drizzle', icon: '🌦️' },
-  55: { label: 'Dense drizzle', icon: '🌧️' },
-  56: { label: 'Freezing drizzle', icon: '🌧️' },
-  57: { label: 'Heavy freezing drizzle', icon: '🌧️' },
-  61: { label: 'Light rain', icon: '🌦️' },
-  63: { label: 'Rain', icon: '🌧️' },
-  65: { label: 'Heavy rain', icon: '🌧️' },
-  66: { label: 'Freezing rain', icon: '🌧️' },
-  67: { label: 'Heavy freezing rain', icon: '🌧️' },
-  71: { label: 'Light snow', icon: '🌨️' },
-  73: { label: 'Snow', icon: '❄️' },
-  75: { label: 'Heavy snow', icon: '❄️' },
-  77: { label: 'Snow grains', icon: '❄️' },
-  80: { label: 'Rain showers', icon: '🌦️' },
-  81: { label: 'Heavy rain showers', icon: '🌧️' },
-  82: { label: 'Violent rain showers', icon: '⛈️' },
-  85: { label: 'Snow showers', icon: '🌨️' },
-  86: { label: 'Heavy snow showers', icon: '🌨️' },
-  95: { label: 'Thunderstorm', icon: '⛈️' },
-  96: { label: 'Thunderstorm with hail', icon: '⛈️' },
-  99: { label: 'Strong thunderstorm with hail', icon: '⛈️' },
+  0: { label: 'Clear sky', icon: 'sunny' },
+  1: { label: 'Mostly clear', icon: 'partly-cloudy' },
+  2: { label: 'Partly cloudy', icon: 'partly-cloudy' },
+  3: { label: 'Overcast', icon: 'cloudy' },
+  45: { label: 'Foggy', icon: 'fog' },
+  48: { label: 'Rime fog', icon: 'fog' },
+  51: { label: 'Light drizzle', icon: 'rain' },
+  53: { label: 'Drizzle', icon: 'rain' },
+  55: { label: 'Dense drizzle', icon: 'rain' },
+  56: { label: 'Freezing drizzle', icon: 'rain' },
+  57: { label: 'Heavy freezing drizzle', icon: 'rain' },
+  61: { label: 'Light rain', icon: 'rain' },
+  63: { label: 'Rain', icon: 'rain' },
+  65: { label: 'Heavy rain', icon: 'rain' },
+  66: { label: 'Freezing rain', icon: 'rain' },
+  67: { label: 'Heavy freezing rain', icon: 'rain' },
+  71: { label: 'Light snow', icon: 'snow' },
+  73: { label: 'Snow', icon: 'snow' },
+  75: { label: 'Heavy snow', icon: 'snow' },
+  77: { label: 'Snow grains', icon: 'snow' },
+  80: { label: 'Rain showers', icon: 'rain' },
+  81: { label: 'Heavy rain showers', icon: 'rain' },
+  82: { label: 'Violent rain showers', icon: 'storm' },
+  85: { label: 'Snow showers', icon: 'snow' },
+  86: { label: 'Heavy snow showers', icon: 'snow' },
+  95: { label: 'Thunderstorm', icon: 'storm' },
+  96: { label: 'Thunderstorm with hail', icon: 'storm' },
+  99: { label: 'Strong thunderstorm with hail', icon: 'storm' },
 }
 
 const defaultCity = 'Užice'
@@ -69,6 +69,83 @@ const defaultState = 'Srbija'
 
 function CelsiusToFahrenheit(value: number) {
   return (value * 9) / 5 + 32
+}
+
+function WeatherIcon({ iconName }: { iconName: string }) {
+  if (iconName === 'sunny') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="32" cy="32" r="11" fill="currentColor" />
+        <g stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+          <path d="M32 8v8M32 48v8M8 32h8M48 32h8M15.5 15.5l5.5 5.5M43 43l5.5 5.5M15.5 48.5l5.5-5.5M43 21l5.5-5.5" />
+        </g>
+      </svg>
+    )
+  }
+
+  if (iconName === 'cloudy') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M18 44h23c8.5 0 14.6-6.1 14.6-14.1 0-7.6-5.8-13.6-13.2-14.1-.9-8.5-8.1-15-16.7-15-7.7 0-14.2 5.2-16.2 12.3C4.2 18.4 0 23.6 0 30.7c0 8.3 6.7 15 15 15Z" fill="currentColor" />
+      </svg>
+    )
+  }
+
+  if (iconName === 'fog') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M18 44h23c8.5 0 14.6-6.1 14.6-14.1 0-7.6-5.8-13.6-13.2-14.1-.9-8.5-8.1-15-16.7-15-7.7 0-14.2 5.2-16.2 12.3C4.2 18.4 0 23.6 0 30.7c0 8.3 6.7 15 15 15Z" fill="currentColor" />
+        <g stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+          <path d="M14 21h26M10 29h40M18 37h22M20 45h16" />
+        </g>
+      </svg>
+    )
+  }
+
+  if (iconName === 'rain') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M17 44h23c8.5 0 14.6-6.1 14.6-14.1 0-7.6-5.8-13.6-13.2-14.1-.9-8.5-8.1-15-16.7-15-7.7 0-14.2 5.2-16.2 12.3C3.2 18.4 0 23.6 0 30.7c0 8.3 6.7 15 15 15Z" fill="currentColor" />
+        <g fill="currentColor">
+          <circle cx="20" cy="48" r="2.5" />
+          <circle cx="30" cy="53" r="2.5" />
+          <circle cx="40" cy="48" r="2.5" />
+        </g>
+      </svg>
+    )
+  }
+
+  if (iconName === 'storm') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M17 44h23c8.5 0 14.6-6.1 14.6-14.1 0-7.6-5.8-13.6-13.2-14.1-.9-8.5-8.1-15-16.7-15-7.7 0-14.2 5.2-16.2 12.3C3.2 18.4 0 23.6 0 30.7c0 8.3 6.7 15 15 15Z" fill="currentColor" />
+        <path d="M33 38 24 51h9l-4 13 14-16h-8l4-10Z" fill="currentColor" />
+      </svg>
+    )
+  }
+
+  if (iconName === 'snow') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M17 44h23c8.5 0 14.6-6.1 14.6-14.1 0-7.6-5.8-13.6-13.2-14.1-.9-8.5-8.1-15-16.7-15-7.7 0-14.2 5.2-16.2 12.3C3.2 18.4 0 23.6 0 30.7c0 8.3 6.7 15 15 15Z" fill="currentColor" />
+        <g fill="currentColor">
+          <circle cx="24" cy="49" r="2.5" />
+          <circle cx="32" cy="49" r="2.5" />
+          <circle cx="40" cy="49" r="2.5" />
+        </g>
+      </svg>
+    )
+  }
+
+  return (
+    <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="22" cy="24" r="9" fill="currentColor" opacity="0.9" />
+      <g stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+        <path d="M22 8v6M22 38v6M8 24h6M36 24h6M13 13l4 4M31 31l4 4M13 35l4-4M31 17l4-4" />
+      </g>
+      <path d="M23 44h17c8.9 0 13.8-5.8 13.8-13.3 0-6.9-4.9-12.7-11.5-13.1-.5-7.6-6.7-13.6-14.4-13.6-7.8 0-14.1 6.1-14.5 13.8C4.7 19.6 0 24.7 0 31.4c0 7.4 6.2 13.4 13.8 13.4Z" fill="currentColor" opacity="0.35" />
+    </svg>
+  )
 }
 
 function App() {
@@ -231,7 +308,7 @@ function App() {
             <section className="hero-panel">
               <div>
                 <div className="weather-icon" aria-hidden="true">
-                  {currentSummary.icon}
+                  <WeatherIcon iconName={currentSummary.icon} />
                 </div>
                 <p className="weather-label">{currentSummary.label}</p>
               </div>
@@ -266,7 +343,9 @@ function App() {
                 {nextHours.map((hour) => (
                   <article key={hour.time} className="hour-card">
                     <span>{new Date(hour.time).toLocaleTimeString([], { hour: 'numeric' })}</span>
-                    <strong>{WEATHER_CODE_MAP[hour.code]?.icon ?? '🌤️'}</strong>
+                    <strong>
+                      <WeatherIcon iconName={WEATHER_CODE_MAP[hour.code]?.icon ?? 'partly-cloudy'} />
+                    </strong>
                     <small>{displayTemperature(hour.temp)}</small>
                   </article>
                 ))}
@@ -282,7 +361,7 @@ function App() {
                   <article key={day.time} className="daily-row">
                     <span>{new Date(day.time).toLocaleDateString([], { weekday: 'short' })}</span>
                     <span className="daily-icon-badge" aria-hidden="true">
-                      {WEATHER_CODE_MAP[day.code]?.icon ?? '🌤️'}
+                      <WeatherIcon iconName={WEATHER_CODE_MAP[day.code]?.icon ?? 'partly-cloudy'} />
                     </span>
                     <small>
                       {displayTemperature(day.max)} / {displayTemperature(day.min)}
