@@ -34,38 +34,38 @@ type ForecastResponse = {
 }
 
 const WEATHER_CODE_MAP: Record<number, { label: string; icon: string }> = {
-  0: { label: 'Clear sky', icon: 'sunny' },
-  1: { label: 'Mostly clear', icon: 'partly-cloudy' },
-  2: { label: 'Partly cloudy', icon: 'partly-cloudy' },
-  3: { label: 'Overcast', icon: 'cloudy' },
-  45: { label: 'Foggy', icon: 'fog' },
-  48: { label: 'Rime fog', icon: 'fog' },
-  51: { label: 'Light drizzle', icon: 'rain' },
-  53: { label: 'Drizzle', icon: 'rain' },
-  55: { label: 'Dense drizzle', icon: 'rain' },
-  56: { label: 'Freezing drizzle', icon: 'rain' },
-  57: { label: 'Heavy freezing drizzle', icon: 'rain' },
-  61: { label: 'Light rain', icon: 'rain' },
-  63: { label: 'Rain', icon: 'rain' },
-  65: { label: 'Heavy rain', icon: 'rain' },
-  66: { label: 'Freezing rain', icon: 'rain' },
-  67: { label: 'Heavy freezing rain', icon: 'rain' },
-  71: { label: 'Light snow', icon: 'snow' },
-  73: { label: 'Snow', icon: 'snow' },
-  75: { label: 'Heavy snow', icon: 'snow' },
-  77: { label: 'Snow grains', icon: 'snow' },
-  80: { label: 'Rain showers', icon: 'rain' },
-  81: { label: 'Heavy rain showers', icon: 'rain' },
-  82: { label: 'Violent rain showers', icon: 'storm' },
-  85: { label: 'Snow showers', icon: 'snow' },
-  86: { label: 'Heavy snow showers', icon: 'snow' },
-  95: { label: 'Thunderstorm', icon: 'storm' },
-  96: { label: 'Thunderstorm with hail', icon: 'storm' },
-  99: { label: 'Strong thunderstorm with hail', icon: 'storm' },
+  0: { label: 'Ведро', icon: 'sunny' },
+  1: { label: 'Претежно ведро', icon: 'partly-cloudy' },
+  2: { label: 'Делимично облачно', icon: 'partly-cloudy' },
+  3: { label: 'Облачно', icon: 'cloudy' },
+  45: { label: 'Магла', icon: 'fog' },
+  48: { label: 'Слана магла', icon: 'fog' },
+  51: { label: 'Слаба росуља', icon: 'rain' },
+  53: { label: 'Росуља', icon: 'rain' },
+  55: { label: 'Густа росуља', icon: 'rain' },
+  56: { label: 'Ледена росуља', icon: 'rain' },
+  57: { label: 'Јака ледена росуља', icon: 'rain' },
+  61: { label: 'Слаба киша', icon: 'rain' },
+  63: { label: 'Киша', icon: 'rain' },
+  65: { label: 'Јака киша', icon: 'rain' },
+  66: { label: 'Ледена киша', icon: 'rain' },
+  67: { label: 'Јака ледена киша', icon: 'rain' },
+  71: { label: 'Слаб снег', icon: 'snow' },
+  73: { label: 'Снег', icon: 'snow' },
+  75: { label: 'Јак снег', icon: 'snow' },
+  77: { label: 'Снежна зрнца', icon: 'snow' },
+  80: { label: 'Пљускови', icon: 'rain' },
+  81: { label: 'Јаки пљускови', icon: 'rain' },
+  82: { label: 'Врло јаки пљускови', icon: 'storm' },
+  85: { label: 'Снежни пљускови', icon: 'snow' },
+  86: { label: 'Јаки снежни пљускови', icon: 'snow' },
+  95: { label: 'Грмљавина', icon: 'storm' },
+  96: { label: 'Грмљавина са градом', icon: 'storm' },
+  99: { label: 'Јака грмљавина са градом', icon: 'storm' },
 }
 
-const defaultCity = 'Užice'
-const defaultState = 'Srbija'
+const defaultCity = 'Ужице'
+const defaultState = 'Србија'
 
 function CelsiusToFahrenheit(value: number) {
   return (value * 9) / 5 + 32
@@ -175,11 +175,11 @@ function App() {
 
     try {
       const geocodeResponse = await fetch(
-        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(nextCity)}&count=5&language=en&format=json`,
+        `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(nextCity)}&count=5&language=sr&format=json`,
       )
 
       if (!geocodeResponse.ok) {
-        throw new Error('Unable to look up that location right now.')
+        throw new Error('Тренутно није могуће пронаћи ту локацију.')
       }
 
       const geocodeData = (await geocodeResponse.json()) as {
@@ -194,7 +194,7 @@ function App() {
         matches[0]
 
       if (!selectedLocation) {
-        throw new Error('We could not find a matching city. Try a more specific location.')
+        throw new Error('Нисмо пронашли одговарајући град. Пробајте прецизнију локацију.')
       }
 
       setLocation(selectedLocation)
@@ -211,7 +211,7 @@ function App() {
       const weatherResponse = await fetch(forecastUrl)
 
       if (!weatherResponse.ok) {
-        throw new Error('Weather details could not be loaded.')
+        throw new Error('Детаљи временске прогнозе нису могли бити учитани.')
       }
 
       const weatherData = (await weatherResponse.json()) as ForecastResponse
@@ -220,7 +220,7 @@ function App() {
       setError(
         caughtError instanceof Error
           ? caughtError.message
-          : 'Something went wrong while fetching the weather.',
+          : 'Дошло је до грешке приликом преузимања прогнозе.',
       )
     } finally {
       setLoading(false)
@@ -257,7 +257,7 @@ function App() {
     unit === 'f' ? `${Math.round(CelsiusToFahrenheit(value))}°F` : `${Math.round(value)}°C`
 
   const locationLabel =
-    location?.country === 'Serbia' ? 'Srbija' : location?.country ?? 'Srbija'
+    location?.country === 'Serbia' ? 'Србија' : location?.country ?? 'Србија'
 
   const currentWeather = forecast?.current
   const currentCode = currentWeather?.weather_code ?? 0
@@ -272,13 +272,13 @@ function App() {
               <span className="greeting-icon" aria-hidden="true">
                 ✨
               </span>
-              Zdravo Acika
+              Здраво Ацика
             </p>
-            <p className="eyebrow">Vremenska Prognoza</p>
+            <p className="eyebrow">Временска прогноза</p>
             <h1>{location?.name ?? city}</h1>
             <p className="subtle">{locationLabel}</p>
           </div>
-          <div className="unit-pill" aria-label="Temperature unit">
+          <div className="unit-pill" aria-label="Јединица температуре">
             <span>°C</span>
           </div>
         </div>
@@ -291,25 +291,25 @@ function App() {
           }}
         >
           <label>
-            <span>GRAD</span>
+            <span>ГРАД</span>
             <input
               type="text"
               value={city}
               onChange={(event) => setCity(event.target.value)}
-              placeholder="GRAD"
+              placeholder="ГРАД"
             />
           </label>
           <label>
-            <span>Država</span>
+            <span>Држава</span>
             <input
               type="text"
               value={stateInput}
               onChange={(event) => setStateInput(event.target.value)}
-              placeholder="Srbija"
+              placeholder="Србија"
             />
           </label>
           <button type="submit" disabled={loading}>
-            {loading ? 'Pretraga…' : 'Prognoza'}
+            {loading ? 'Претрага…' : 'Прогноза'}
           </button>
         </form>
 
@@ -327,34 +327,34 @@ function App() {
               <div>
                 <p className="temperature">{displayTemperature(currentWeather.temperature_2m)}</p>
                 <p className="feels-like">
-                  Feels like {displayTemperature(currentWeather.apparent_temperature)}
+                  Субјективни осећај {displayTemperature(currentWeather.apparent_temperature)}
                 </p>
               </div>
             </section>
 
             <section className="stats-grid">
               <article className="stat-card">
-                <span>Humidity</span>
+                <span>Влажност</span>
                 <strong>{currentWeather.relative_humidity_2m}%</strong>
               </article>
               <article className="stat-card">
-                <span>Wind</span>
+                <span>Ветар</span>
                 <strong>{Math.round(currentWeather.wind_speed_10m)} km/h</strong>
               </article>
               <article className="stat-card">
-                <span>Precipitation</span>
+                <span>Падавине</span>
                 <strong>{currentWeather.precipitation.toFixed(1)} mm</strong>
               </article>
             </section>
 
             <section className="forecast-section">
               <div className="section-heading">
-                <h2>Next 8 hours</h2>
+                <h2>Следећих 8 сати</h2>
               </div>
               <div className="hourly-row">
                 {nextHours.map((hour) => (
                   <article key={hour.time} className="hour-card">
-                    <span>{new Date(hour.time).toLocaleTimeString([], { hour: 'numeric' })}</span>
+                    <span>{new Date(hour.time).toLocaleTimeString('sr-Cyrl-RS', { hour: '2-digit' })}</span>
                     <strong>
                       <WeatherIcon iconName={WEATHER_CODE_MAP[hour.code]?.icon ?? 'partly-cloudy'} />
                     </strong>
@@ -364,14 +364,14 @@ function App() {
               </div>
             </section>
 
-            <section className="forecast-section">
+            <section className="forecast-section daily-forecast-section">
               <div className="section-heading">
-                <h2>7-day outlook</h2>
+                <h2>Прогноза за 7 дана</h2>
               </div>
               <div className="daily-list">
                 {nextDays.map((day) => (
                   <article key={day.time} className="daily-row">
-                    <span>{new Date(day.time).toLocaleDateString([], { weekday: 'short' })}</span>
+                    <span>{new Date(day.time).toLocaleDateString('sr-Cyrl-RS', { weekday: 'short' })}</span>
                     <span className="daily-icon-badge" aria-hidden="true">
                       <WeatherIcon iconName={WEATHER_CODE_MAP[day.code]?.icon ?? 'partly-cloudy'} />
                     </span>

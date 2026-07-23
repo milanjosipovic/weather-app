@@ -381,11 +381,30 @@
   gap: 8px;
 }
 
+.daily-forecast-section .daily-list {
+  width: 100%;
+  gap: 8px;
+}
+
 .daily-row {
-  grid-template-columns: 1fr auto 1fr auto;
+  grid-template-columns: auto auto auto auto;
   align-items: center;
-  gap: 10px;
+  justify-content: start;
+  gap: 8px;
+  padding: 10px 12px;
   text-align: left;
+}
+
+.daily-forecast-section .daily-row {
+  width: 100%;
+  grid-template-columns: minmax(44px, 0.9fr) auto minmax(120px, 1.2fr) auto;
+  padding: 10px 12px;
+  border-radius: 16px;
+  gap: 10px;
+}
+
+.daily-forecast-section .section-heading {
+  display: block;
 }
 
 .daily-row strong {
@@ -440,6 +459,7 @@
   color: #607094;
   font-style: normal;
   font-size: 12px;
+  white-space: nowrap;
 }
 
 @media (max-width: 480px) {
