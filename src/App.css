@@ -392,7 +392,7 @@
   font-size: 24px;
 }
 
-.daily-icon-badge {
+.daily-row .daily-icon-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -409,6 +409,31 @@
 .daily-icon-badge .weather-svg-icon {
   width: 22px;
   height: 22px;
+}
+
+/* Fallback contrast so daily icons remain readable across themes/settings. */
+.daily-row .daily-icon-badge {
+  color: #244ea8;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.96),
+    0 8px 18px rgba(91, 113, 163, 0.14),
+    0 0 0 1px rgba(36, 78, 168, 0.2);
+}
+
+.daily-row .daily-icon-badge .weather-svg-icon {
+  filter: contrast(1.2) saturate(1.15) drop-shadow(0 1px 0 rgba(255, 255, 255, 0.8));
+}
+
+@media (prefers-contrast: more), (forced-colors: active) {
+  .daily-row .daily-icon-badge {
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: inset 0 0 0 2px currentColor;
+  }
+
+  .daily-row .daily-icon-badge .weather-svg-icon {
+    filter: none;
+  }
 }
 
 .daily-row em {

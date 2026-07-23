@@ -91,6 +91,18 @@ function WeatherIcon({ iconName }: { iconName: string }) {
     )
   }
 
+  if (iconName === 'partly-cloudy') {
+    return (
+      <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
+        <circle cx="22" cy="22" r="9" fill="currentColor" opacity="0.9" />
+        <g stroke="currentColor" strokeWidth="3" strokeLinecap="round" opacity="0.9">
+          <path d="M22 8v6M22 32v6M8 22h6M32 22h6M13 13l4 4M27 27l4 4M13 31l4-4M27 17l4-4" />
+        </g>
+        <path d="M19 48h23c8.5 0 14.6-6.1 14.6-14.1 0-7.6-5.8-13.6-13.2-14.1-.9-8.5-8.1-15-16.7-15-7.7 0-14.2 5.2-16.2 12.3C5.2 22.4 2 27.6 2 34.7c0 8.3 6.7 15 15 15Z" fill="currentColor" opacity="0.38" />
+      </svg>
+    )
+  }
+
   if (iconName === 'fog') {
     return (
       <svg className="weather-svg-icon" viewBox="0 0 64 64" aria-hidden="true">
