@@ -281,7 +281,9 @@ function App() {
                 {nextDays.map((day) => (
                   <article key={day.time} className="daily-row">
                     <span>{new Date(day.time).toLocaleDateString([], { weekday: 'short' })}</span>
-                    <strong>{WEATHER_CODE_MAP[day.code]?.icon ?? '🌤️'}</strong>
+                    <span className="daily-icon-badge" aria-hidden="true">
+                      {WEATHER_CODE_MAP[day.code]?.icon ?? '🌤️'}
+                    </span>
                     <small>
                       {displayTemperature(day.max)} / {displayTemperature(day.min)}
                     </small>
